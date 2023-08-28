@@ -16,12 +16,31 @@
     <header>
       <h3 class="text-4xl text-center pt-4">Phone Hunting</h3>
     </header>
-    <main>
-      <section class="mt-10">
+    <main class="container mx-auto">
+      <section class="p-6 bg-gray-200 rounded">
+        <input
+          id="search-field"
+          type="text"
+          placeholder="Search..."
+          class="input input-bordered input-accent w-full max-w-md bg-black text-white"
+        />
+        <button onclick="searchBtn()" class="btn btn-outline btn-accent">
+          Search
+        </button>
+      </section>
+      <!-- search result -->
+      <section class="my-10">
+        <!-- Data loading -->
+        <div id="data-loading" class="text-center my-40 hidden">
+          <span class="loading loading-spinner text-lime-600 loading-lg"></span>
+        </div>
         <div
           id="phone-container"
-          class="m-4 mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         ></div>
+        <div id="show-all-container" class="mt-4 hidden">
+          <button class="btn btn-outline btn-info">Show All</button>
+        </div>
       </section>
     </main>
     <footer></footer>
