@@ -1,5 +1,5 @@
 // Function to load phones based on a search query
-const loadPhone = async (searchText, isShowAll) => {
+const loadPhone = async (searchText = 13, isShowAll) => {
   // Fetch phone data from the API
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchText}`
@@ -79,6 +79,43 @@ const showAllHandler = () => {
 };
 
 // Show details button
-const handleShowDetails = (id) => {
-  console.log(id);
+const handleShowDetails = async (id) => {
+  showModalLoader(true);
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/phone/${id}`
+  );
+  const data = await res.json();
+  const phone = data.data;
+  showDetails(phone);
 };
+
+const showDetails = (phone) => {
+  console.log(phone);
+  show_details_modal.showModal();
+
+  const detailsContainer = document.getElementById("details-container");
+
+  detailsContainer.innerHTML = `
+  <div class="space-y-10">
+  <img class="mx-auto" src="${phone.image}" alt="">
+  <h3 class="font-bold text-lg">${phone.name}</h3></div>
+  <p>
+  It is a long established fact that a reader will be distracted by
+  the readable content of a page when looking at its layout.
+</p>
+<p><span class="text-xl font-bold">Storage :</span> ${phone?.mainFeatures?.storage}</p>
+<p><span class="text-xl font-bold">Display Size :</span> ${phone?.mainFeatures?.displaySize}</p>
+<p><span class="text-xl font-bold">chipset :</span> ${phone?.mainFeatures?.chipSet}</p>
+</div>
+  `;
+
+  showModalLoader(false);
+};
+
+const showModalLoader = (isLoading) => {
+  const lodingDiv = document.getElementById("show-modal-loader");
+  isLoading === true
+    ? lodingDiv.classList.remove("hidden")
+    : lodingDiv.classList.add("hidden");
+};
+loadPhone();
